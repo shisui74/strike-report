@@ -1,19 +1,30 @@
 framework:
-    cache:
-        # Unique name of your app: used to compute stable namespaces for cache keys.
-        #prefix_seed: your_vendor_name/app_name
+  cache:
+    app: cache.adapter.redis
+    default_redis_provider: '%env(REDIS_URL)%'
 
-        # The "app" cache stores to the filesystem by default.
-        # The data in this cache should persist between deploys.
-        # Other options include:
+    pools:
+      # Cache pour les données Bungie API
+      cache.bungie_api:
+        adapter: cache.adapter.redis
+        default_lifetime: 3600 # 1 heure
 
-        # Redis
-        #app: cache.adapter.redis
-        #default_redis_provider: redis://localhost
+      # Cache pour les PGCR (Post Game Carnage Reports)
+      cache.bungie_pgcr:
+        adapter: cache.adapter.redis
+        default_lifetime: 3600 # 1 heure
 
-        # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
-        #app: cache.adapter.apcu
+      # Cache pour les métadonnées des Strikes
+      cache.bungie_strikes:
+        adapter: cache.adapter.redis
+        default_lifetime: 86400 # 24 heures
 
-        # Namespaced pools use the above "app" backend by default
-        #pools:
-            #my.dedicated.cache: null
+      # Cache pour les recherches de joueurs
+      cache.player_search:
+        adapter: cache.adapter.redis
+        default_lifetime: 900 # 15 minutes
+
+      # Cache pour le Manifest Bungie
+      cache.bungie_manifest:
+        adapter: cache.adapter.redis
+        default_lifetime: 604800 # 7 jours
