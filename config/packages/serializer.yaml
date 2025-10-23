@@ -1,0 +1,15 @@
+framework:
+  serializer:
+    enabled: true
+    enable_annotations: true
+    mapping:
+      paths: ['%kernel.project_dir%/config/serialization']
+    name_converter: 'serializer.name_converter.camel_case_to_snake_case'
+    circular_reference_handler: 'serializer.circular_reference_handler'
+
+services:
+  serializer.circular_reference_handler:
+    class: App\Serializer\CircularReferenceHandler
+
+  serializer.name_converter.camel_case_to_snake_case:
+    class: Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter

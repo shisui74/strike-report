@@ -1,0 +1,38 @@
+parameters:
+  bungie.api_key: '%env(BUNGIE_API_KEY)%'
+  bungie.client_id: '%env(BUNGIE_CLIENT_ID)%'
+  bungie.oauth_url: '%env(BUNGIE_OAUTH_URL)%'
+  bungie.token_url: '%env(BUNGIE_TOKEN_URL)%'
+  bungie.api_root: '%env(BUNGIE_API_ROOT)%'
+  bungie.redirect_uri: '%env(BUNGIE_REDIRECT_URI)%'
+
+  # OAuth PKCE
+  bungie.oauth.use_pkce: true
+  bungie.oauth.code_challenge_method: 'S256' # SHA256
+
+  # Rate limiting
+  bungie.rate_limit.max_requests: 25
+  bungie.rate_limit.per_seconds: 10
+
+  # Cache TTLs (en secondes)
+  bungie.cache.pgcr_ttl: 3600          # 1 heure
+  bungie.cache.strike_meta_ttl: 86400  # 24 heures
+  bungie.cache.player_search_ttl: 900  # 15 minutes
+  bungie.cache.manifest_ttl: 604800    # 7 jours
+  bungie.cache.activity_history_ttl: 1800 # 30 minutes
+
+  # Manifest
+  bungie.manifest.path: '%kernel.project_dir%/var/cache/bungie/manifest'
+  bungie.manifest.auto_update: true
+
+  # Activity types (Strikes/Nightfalls/Assaults)
+  bungie.activity_types:
+    # Strikes standards et variations
+    strikes: [4, 18, 46, 47, 79, 80, 82]
+    # 4 = Strike
+    # 18 = Strike (Scored)
+    # 46 = Scored Nightfall Strike
+    # 47 = Scored Prestige Nightfall Strike
+    # 79 = Vanguard
+    # 80 = Nightfall Strike
+    # 82 = Grandmaster Nightfall
